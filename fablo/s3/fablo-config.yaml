@@ -1,0 +1,58 @@
+$schema: https://github.com/hyperledger-labs/fablo/releases/download/2.6.0/schema.json
+
+global:
+  fabricVersion: 2.5.9
+  tls: true
+  peerDevMode: false
+
+orgs:
+  - organization:
+      name: OrdererOrg
+      domain: orderer.org1.fablo-s3.com
+    orderers:
+      - groupName: orderer-group
+        type: raft
+        instances: 1
+
+  - organization:
+      name: Org1
+      domain: org1.fablo-s3.com
+    peer:
+      instances: 1
+
+  - organization:
+      name: Org2
+      domain: org2.fablo-s3.com
+    peer:
+      instances: 1
+  
+  - organization:
+      name: Org3
+      domain: org3.fablo-s3.com
+    peer:
+      instances: 1
+
+channels:
+  - name: channel1
+    groupName: orderer-group
+    orgs:
+      - name: Org1
+        peers: [peer0]
+      - name: Org2
+        peers: [peer0]
+  - name: channel2
+    groupName: orderer-group
+    orgs:
+      - name: Org1
+        peers: [peer0]
+      - name: Org2
+        peers: [peer0]
+  - name: channel2
+    groupName: orderer-group
+    orgs:
+      - name: Org1
+        peers: [peer0]
+      - name: Org2
+        peers: [peer0]
+      - name: Org3
+        peers: [peer0]

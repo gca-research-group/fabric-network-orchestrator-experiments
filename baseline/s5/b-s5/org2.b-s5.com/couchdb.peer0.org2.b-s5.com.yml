@@ -1,0 +1,11 @@
+services:
+  couchdb.peer0.org2.b-s5.com:
+    container_name: couchdb.peer0.org2.b-s5.com
+    image: couchdb:latest
+    environment:
+      COUCHDB_USER: admin
+      COUCHDB_PASSWORD: adminpw
+    volumes:
+      - ./org2.b-s5.com/data/peers/peer0/couchdb:/opt/couchdb/data
+    networks:
+      - b-s5

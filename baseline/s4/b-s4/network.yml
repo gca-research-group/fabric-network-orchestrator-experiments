@@ -1,0 +1,4 @@
+networks:
+  b-s4:
+    name: b-s4
+    driver: bridge

@@ -1,0 +1,29 @@
+services:
+  tools.org1.b-s4.com:
+    container_name: tools.org1.b-s4.com
+    image: hyperledger/fabric-tools:2.5.15
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.org1.b-s4.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s4.com/peerOrganizations/org1.b-s4.com/peers/peer0.org1.b-s4.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s4.com/peerOrganizations/org1.b-s4.com/peers/peer0.org1.b-s4.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s4.com/peerOrganizations/org1.b-s4.com/peers/peer0.org1.b-s4.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s4.com/peerOrganizations/org1.b-s4.com/users/Admin@org1.b-s4.com/msp
+    volumes:
+      - ./configtx.yml:/opt/gopath/src/github.com/hyperledger/fabric/configtx.yml
+      - ./org1.b-s4.com/data/channels:/opt/gopath/src/github.com/hyperledger/fabric/channels
+      - ./org1.b-s4.com/data/certificate-authority/organizations:/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s4.com
+      - ./org2.b-s4.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s4.com/msp/cacerts:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s4.com/peerOrganizations/org2.b-s4.com/msp/cacerts
+      - ./org2.b-s4.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s4.com/msp/config.yaml:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s4.com/peerOrganizations/org2.b-s4.com/msp/config.yaml
+      - ./org2.b-s4.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s4.com/peers/peer0.org2.b-s4.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s4.com/peerOrganizations/org2.b-s4.com/peers/peer0.org2.b-s4.com/msp/signcerts
+      - ./org2.b-s4.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s4.com/peers/peer0.org2.b-s4.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s4.com/peerOrganizations/org2.b-s4.com/peers/peer0.org2.b-s4.com/tls/ca.crt
+      - ./org2.b-s4.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s4.com/peers/peer0.org2.b-s4.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s4.com/peerOrganizations/org2.b-s4.com/peers/peer0.org2.b-s4.com/tls/server.crt
+    networks:
+      - b-s4

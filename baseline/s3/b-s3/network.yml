@@ -1,0 +1,4 @@
+networks:
+  b-s3:
+    name: b-s3
+    driver: bridge

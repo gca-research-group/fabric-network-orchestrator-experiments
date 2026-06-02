@@ -1,0 +1,41 @@
+output: output/fno-s4
+network: fno-s4
+
+capabilities:
+  channel: V2_0
+  orderer: V2_0
+  application: V2_5
+
+organizations:
+  - name: Org1
+    domain: org1.fno-s4.com
+    orderers:
+      - name: Orderer
+        subdomain: orderer
+        version: 2.4.7
+    peers:
+      - name: Peer0
+        subdomain: peer0
+        version: 2.5.14
+    certificateAuthority:
+      version: 1.5.15
+
+  - name: Org2
+    domain: org2.fno-s4.com
+    peers:
+      - name: Peer0
+        subdomain: peer0
+        version: 2.3.3
+    certificateAuthority:
+      version: 1.5.8
+
+profiles:
+  - &DefaultProfile
+    name: DefaultProfile
+    organizations:
+      - Org1
+      - Org2
+
+channels:
+  - name: defaultchannel
+    profile: *DefaultProfile

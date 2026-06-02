@@ -1,0 +1,67 @@
+output: output/fno-s5
+network: fno-s5
+
+chaincodes:
+  - &asset
+    name: Asset
+    path: s5/chaincodes/asset
+    version: "1.0"
+
+  - &product
+    name: Product
+    path: s5/chaincodes/product
+    version: "1.0"
+    signaturePolicy: AND("Org1MSP.peer", "Org2MSP.peer", "Org3MSP.peer")
+
+  - &privateagreement
+    name: PrivateAgreement
+    path: s5/chaincodes/private-agreement
+    version: "2.0"
+    channelConfigPolicy: Channel/Application/Endorsement
+    collectionsConfig: s5/chaincodes/private-agreement/collections_config.json
+
+capabilities:
+  channel: V2_0
+  orderer: V2_0
+  application: V2_5
+
+organizations:
+  - name: Org1
+    domain: org1.fno-s5.com
+    orderers:
+      - name: Orderer
+        subdomain: orderer
+    peers:
+      - name: Peer0
+        subdomain: peer0
+        exposePort: 7051
+
+  - name: Org2
+    domain: org2.fno-s5.com
+    peers:
+      - name: Peer0
+        subdomain: peer0
+        exposePort: 8051
+
+  - name: Org3
+    domain: org3.fno-s5.com
+    peers:
+      - name: Peer0
+        subdomain: peer0
+        exposePort: 9051
+
+profiles:
+  - &DefaultProfile
+    name: DefaultProfile
+    organizations:
+      - Org1
+      - Org2
+      - Org3
+
+channels:
+  - name: defaultchannel
+    profile: *DefaultProfile
+    chaincodes:
+      - *asset
+      - *product
+      - *privateagreement

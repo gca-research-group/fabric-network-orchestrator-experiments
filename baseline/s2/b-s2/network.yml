@@ -1,0 +1,4 @@
+networks:
+  b-s2:
+    name: b-s2
+    driver: bridge

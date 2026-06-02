@@ -1,0 +1,4 @@
+networks:
+  b-s5:
+    name: b-s5
+    driver: bridge

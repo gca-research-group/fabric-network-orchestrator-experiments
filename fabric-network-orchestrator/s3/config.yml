@@ -1,0 +1,53 @@
+output: c3/output/fno-s3
+network: fno-s3
+
+capabilities:
+  channel: V2_0
+  orderer: V2_0
+  application: V2_5
+
+organizations:
+  - name: Org1
+    domain: org1.fno-s3.com
+    orderers:
+      - name: Orderer
+        subdomain: orderer
+    peers:
+      - name: Peer0
+        subdomain: peer0
+
+  - name: Org2
+    domain: org2.fno-s3.com
+    peers:
+      - name: Peer0
+        subdomain: peer0
+
+  - name: Org3
+    domain: org3.fno-s3.com
+    peers:
+      - name: Peer0
+        subdomain: peer0
+
+profiles:
+  - &TwoOrgsProfile
+    name: TwoOrgsProfile
+    organizations:
+      - Org1
+      - Org2
+
+  - &AllOrgsProfile
+    name: AllOrgsProfile
+    organizations:
+      - Org1
+      - Org2
+      - Org3
+
+channels:
+  - name: channel1
+    profile: *TwoOrgsProfile
+
+  - name: channel2
+    profile: *TwoOrgsProfile
+
+  - name: channel3
+    profile: *AllOrgsProfile

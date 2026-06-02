@@ -1,0 +1,69 @@
+services:
+  tools.org1.b-s2.com:
+    container_name: tools.org1.b-s2.com
+    image: hyperledger/fabric-tools:2.5.15
+    tty: true
+    stdin_open: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=INFO
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.org1.b-s2.com:7051
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s2.com/peerOrganizations/org1.b-s2.com/peers/peer0.org1.b-s2.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s2.com/peerOrganizations/org1.b-s2.com/peers/peer0.org1.b-s2.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s2.com/peerOrganizations/org1.b-s2.com/peers/peer0.org1.b-s2.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s2.com/peerOrganizations/org1.b-s2.com/users/Admin@org1.b-s2.com/msp
+    volumes:
+      - ./configtx.yml:/opt/gopath/src/github.com/hyperledger/fabric/configtx.yml
+
+      - ./org1.b-s2.com/data/channels:/opt/gopath/src/github.com/hyperledger/fabric/channels
+      - ./org1.b-s2.com/data/certificate-authority/organizations:/opt/gopath/src/github.com/hyperledger/fabric/org1.b-s2.com
+
+      - ./org2.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s2.com/msp/cacerts:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s2.com/peerOrganizations/org2.b-s2.com/msp/cacerts
+      - ./org2.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s2.com/msp/config.yaml:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s2.com/peerOrganizations/org2.b-s2.com/msp/config.yaml
+      # peer 0
+      - ./org2.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s2.com/peers/peer0.org2.b-s2.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s2.com/peerOrganizations/org2.b-s2.com/peers/peer0.org2.b-s2.com/msp/signcerts
+      - ./org2.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s2.com/peers/peer0.org2.b-s2.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s2.com/peerOrganizations/org2.b-s2.com/peers/peer0.org2.b-s2.com/tls/ca.crt
+      - ./org2.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s2.com/peers/peer0.org2.b-s2.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s2.com/peerOrganizations/org2.b-s2.com/peers/peer0.org2.b-s2.com/tls/server.crt
+      # peer 1
+      - ./org2.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s2.com/peers/peer1.org2.b-s2.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s2.com/peerOrganizations/org2.b-s2.com/peers/peer1.org2.b-s2.com/msp/signcerts
+      - ./org2.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s2.com/peers/peer1.org2.b-s2.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s2.com/peerOrganizations/org2.b-s2.com/peers/peer1.org2.b-s2.com/tls/ca.crt
+      - ./org2.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org2.b-s2.com/peers/peer1.org2.b-s2.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org2.b-s2.com/peerOrganizations/org2.b-s2.com/peers/peer1.org2.b-s2.com/tls/server.crt
+
+      - ./org3.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org3.b-s2.com/msp/cacerts:/opt/gopath/src/github.com/hyperledger/fabric/org3.b-s2.com/peerOrganizations/org3.b-s2.com/msp/cacerts
+      - ./org3.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org3.b-s2.com/msp/config.yaml:/opt/gopath/src/github.com/hyperledger/fabric/org3.b-s2.com/peerOrganizations/org3.b-s2.com/msp/config.yaml
+      # peer 0
+      - ./org3.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org3.b-s2.com/peers/peer0.org3.b-s2.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org3.b-s2.com/peerOrganizations/org3.b-s2.com/peers/peer0.org3.b-s2.com/msp/signcerts
+      - ./org3.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org3.b-s2.com/peers/peer0.org3.b-s2.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org3.b-s2.com/peerOrganizations/org3.b-s2.com/peers/peer0.org3.b-s2.com/tls/ca.crt
+      - ./org3.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org3.b-s2.com/peers/peer0.org3.b-s2.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org3.b-s2.com/peerOrganizations/org3.b-s2.com/peers/peer0.org3.b-s2.com/tls/server.crt
+      # peer 1
+      - ./org3.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org3.b-s2.com/peers/peer1.org3.b-s2.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org3.b-s2.com/peerOrganizations/org3.b-s2.com/peers/peer1.org3.b-s2.com/msp/signcerts
+      - ./org3.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org3.b-s2.com/peers/peer1.org3.b-s2.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org3.b-s2.com/peerOrganizations/org3.b-s2.com/peers/peer1.org3.b-s2.com/tls/ca.crt
+      - ./org3.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org3.b-s2.com/peers/peer1.org3.b-s2.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org3.b-s2.com/peerOrganizations/org3.b-s2.com/peers/peer1.org3.b-s2.com/tls/server.crt
+
+      - ./org4.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org4.b-s2.com/msp/cacerts:/opt/gopath/src/github.com/hyperledger/fabric/org4.b-s2.com/peerOrganizations/org4.b-s2.com/msp/cacerts
+      - ./org4.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org4.b-s2.com/msp/config.yaml:/opt/gopath/src/github.com/hyperledger/fabric/org4.b-s2.com/peerOrganizations/org4.b-s2.com/msp/config.yaml
+      # peer 0
+      - ./org4.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org4.b-s2.com/peers/peer0.org4.b-s2.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org4.b-s2.com/peerOrganizations/org4.b-s2.com/peers/peer0.org4.b-s2.com/msp/signcerts
+      - ./org4.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org4.b-s2.com/peers/peer0.org4.b-s2.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org4.b-s2.com/peerOrganizations/org4.b-s2.com/peers/peer0.org4.b-s2.com/tls/ca.crt
+      - ./org4.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org4.b-s2.com/peers/peer0.org4.b-s2.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org4.b-s2.com/peerOrganizations/org4.b-s2.com/peers/peer0.org4.b-s2.com/tls/server.crt
+      # peer 1
+      - ./org4.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org4.b-s2.com/peers/peer1.org4.b-s2.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org4.b-s2.com/peerOrganizations/org4.b-s2.com/peers/peer1.org4.b-s2.com/msp/signcerts
+      - ./org4.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org4.b-s2.com/peers/peer1.org4.b-s2.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org4.b-s2.com/peerOrganizations/org4.b-s2.com/peers/peer1.org4.b-s2.com/tls/ca.crt
+      - ./org4.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org4.b-s2.com/peers/peer1.org4.b-s2.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org4.b-s2.com/peerOrganizations/org4.b-s2.com/peers/peer1.org4.b-s2.com/tls/server.crt
+
+      - ./org5.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org5.b-s2.com/msp/cacerts:/opt/gopath/src/github.com/hyperledger/fabric/org5.b-s2.com/peerOrganizations/org5.b-s2.com/msp/cacerts
+      - ./org5.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org5.b-s2.com/msp/config.yaml:/opt/gopath/src/github.com/hyperledger/fabric/org5.b-s2.com/peerOrganizations/org5.b-s2.com/msp/config.yaml
+      # peer 0
+      - ./org5.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org5.b-s2.com/peers/peer0.org5.b-s2.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org5.b-s2.com/peerOrganizations/org5.b-s2.com/peers/peer0.org5.b-s2.com/msp/signcerts
+      - ./org5.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org5.b-s2.com/peers/peer0.org5.b-s2.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org5.b-s2.com/peerOrganizations/org5.b-s2.com/peers/peer0.org5.b-s2.com/tls/ca.crt
+      - ./org5.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org5.b-s2.com/peers/peer0.org5.b-s2.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org5.b-s2.com/peerOrganizations/org5.b-s2.com/peers/peer0.org5.b-s2.com/tls/server.crt
+      # peer 1
+      - ./org5.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org5.b-s2.com/peers/peer1.org5.b-s2.com/msp/signcerts:/opt/gopath/src/github.com/hyperledger/fabric/org5.b-s2.com/peerOrganizations/org5.b-s2.com/peers/peer1.org5.b-s2.com/msp/signcerts
+      - ./org5.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org5.b-s2.com/peers/peer1.org5.b-s2.com/tls/ca.crt:/opt/gopath/src/github.com/hyperledger/fabric/org5.b-s2.com/peerOrganizations/org5.b-s2.com/peers/peer1.org5.b-s2.com/tls/ca.crt
+      - ./org5.b-s2.com/data/certificate-authority/organizations/peerOrganizations/org5.b-s2.com/peers/peer1.org5.b-s2.com/tls/server.crt:/opt/gopath/src/github.com/hyperledger/fabric/org5.b-s2.com/peerOrganizations/org5.b-s2.com/peers/peer1.org5.b-s2.com/tls/server.crt
+    networks:
+      - b-s2

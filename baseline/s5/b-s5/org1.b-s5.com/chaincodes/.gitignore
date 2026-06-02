@@ -1,0 +1,5 @@
+*.mod
+*.sha256sum
+*.tar.gz
+*version
+*vendor
